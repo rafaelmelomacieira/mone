@@ -1,6 +1,5 @@
-module delay_sum #(parameter POS_1 = 16'd0, POS_2 = 16'd0)(input s_clk, input n_rst, input [WINDOW_SIZE-1:0] left_rolling_buffer, input [WINDOW_SIZE-1:0] right_rolling_buffer, output logic [15:0] energy);
+module delay_sum #(parameter POS_1 = 16'd0, POS_2 = 16'd0, WINDOW_SIZE = 16'd256)(input s_clk, input n_rst, input [WINDOW_SIZE-1:0] left_rolling_buffer, input [WINDOW_SIZE-1:0] right_rolling_buffer, output logic [15:0] energy);
 
-logic [15:0] energy;
 logic [1:0] pdm_bits;
 
 assign pdm_bits = {left_rolling_buffer[POS_1],right_rolling_buffer[POS_2]};

@@ -35,14 +35,13 @@ mic_pll pll_0 (
 		.us_clk(m_clk) //ultrasonic mode clock output
 		//.std_clk(std_clk) //standard mode clock output
 		);
-					
-mic_codec codec_0 (
+
+two_mic_beamforming beamforming_0 (
 		.s_clk(s_clk),
 		.n_rst(s_n_rst),
 		.mic_clk(m_clk),
-		.mic_data(m_data),
-		.left_mic_data(left_mic_data),
-		.right_mic_data(right_mic_data)
+		.mic_data(m_data)
+		//.energy(left_mic_data)
 		);
 
 endmodule
