@@ -1,4 +1,6 @@
-module mic_codec(input s_clk, input n_rst, input mic_clk, input mic_data, output logic left_mic_data, output logic right_mic_data);
+module mic_codec(input s_clk, input n_rst, input mic_clk,
+		input mic_data, output logic left_mic_data,
+		output logic right_mic_data);
 
 logic [4:0] counter;
 logic last_m_clk;

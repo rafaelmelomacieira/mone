@@ -24,7 +24,7 @@ end
 initial begin
 	m_data = 1'b0;
 	forever begin
-		@(m_clk);
+		@(std_clk);
 		m_data = #2 $random % 2;
 	end
 end
@@ -32,17 +32,17 @@ end
 mic_pll pll_0 (
 		.s_clk(s_clk), //system clock input
 		.n_rst(s_n_rst), //reset input
-		.us_clk(m_clk) //ultrasonic mode clock output
-		//.std_clk(std_clk) //standard mode clock output
+		//.us_clk(m_clk) //ultrasonic mode clock output
+		.std_clk(std_clk) //standard mode clock output
 		);
 					
 mic_codec codec_0 (
 		.s_clk(s_clk),
 		.n_rst(s_n_rst),
-		.mic_clk(m_clk),
+		.mic_clk(std_clk),
 		.mic_data(m_data),
-		.left_mic_data(left_mic_data),
-		.right_mic_data(right_mic_data)
+		.left_mic_data(left_mic_data), //output
+		.right_mic_data(right_mic_data) //output
 		);
 
 endmodule

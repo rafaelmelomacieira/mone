@@ -1,0 +1,22 @@
+module delay_sum #(parameter POS_1 = 16'd0, POS_2 = 16'd0, WINDOW_SIZE = 16'd256)(input s_clk, input n_rst, input [WINDOW_SIZE-1:0] left_rolling_buffer, input [WINDOW_SIZE-1:0] right_rolling_buffer, output logic signed [31:0] energy);
+
+logic [5:0] pdm_bits;
+
+assign pdm_bits = {left_rolling_buffer[POS_1:POS_1-2],right_rolling_buffer[POS_2:POS_2-1]};
+
+always_ff @ (negedge n_rst or posedge s_clk) begin
+	if (!n_rst) begin
+		energy <= 32'sd0;
+	end else begin
+		if (pdm_bits[2:0] == pdm_bits[5:3]) begin
+			energy <= (energy < 32'sd500000) ? energy + 32'sd1 : energy;
+			//energy <= energy + 32'sd1;
+		end else begin
+			energy <= (energy > -32'sd500000) ? energy - 32'sd1 : energy;
+			//energy <= energy - 32'sd1;
+		end
+	end
+end			
+	
+endmodule
+
